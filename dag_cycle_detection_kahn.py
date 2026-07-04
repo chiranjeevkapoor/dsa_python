@@ -1,7 +1,7 @@
 from collections import deque
 class Solution:
-    def topoSort(self, V, edges):
-        # Code here
+    def isCyclic(self, V, edges):
+        # code here
         q = deque()
         adj = [[] for i in range(V)]
         indegree = [0]*V
@@ -15,16 +15,19 @@ class Solution:
         for i in range(V):
             if indegree[i]==0:
                 q.append(i)
-        ans = []
+        count = 0
         
         while q:
             node = q.popleft()
-            ans.append(node)
+            count+=1
             
             for el in adj[node]:
                 indegree[el]-=1
                 if indegree[el]==0:
                     q.append(el)
         
-        return ans
-            
+        if count==V:
+            return False
+        return True
+                
+        
